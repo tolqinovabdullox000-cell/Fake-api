@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FakeStore - Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="container header-container">
+      <h1 class="logo">FakeStore</h1>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="Products/Products.html">Products</a>
+        <a href="#">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-section">
+    <div class="container hero-content">
+      <h2>Modern Fake Store</h2>
+      <p>Best products with clean dark UI experience</p>
+      <a href="./img/img.js" class="hero-btn">Explore Products</a>
+    </div>
+  </section>
+
+  <section class="featured-section">
+    <div class="container">
+      <h3 class="section-title">Featured Products</h3>
+      <div class="products-grid" id="featuredGrid">
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+  <script>
+    displayFeatured();
+  </script>
+</body>
+</html>
