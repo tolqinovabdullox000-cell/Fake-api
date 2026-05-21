@@ -285,43 +285,29 @@ function generateProductHTML(product) {
 function displayFeatured() {
   const featuredGrid = document.getElementById("featuredGrid");
   if (!featuredGrid) return;
+
   const featuredProducts = data.slice(0, 4);
+
   featuredGrid.innerHTML = featuredProducts
     .map((product) => generateProductHTML(product))
     .join("");
 }
 
-let searchQuery = "";
-let selectedCategory = "all";
-
 function initProductsPage() {
-  const searchInput = document.getElementById("searchInput");
-  const categorySelect = document.getElementById("categorySelect");
   const closeModal = document.getElementById("closeModal");
   const productModal = document.getElementById("productModal");
 
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      searchQuery = e.target.value;
-      renderAllProducts();
-    });
-  }
-
-  if (categorySelect) {
-    categorySelect.addEventListener("change", (e) => {
-      selectedCategory = e.target.value;
-      renderAllProducts();
-    });
-  }
-
   if (closeModal) {
-    closeModal.addEventListener("click", () =>
-      productModal.classList.remove("open"),
-    );
+    closeModal.addEventListener("click", () => {
+      productModal.classList.remove("open");
+    });
   }
+
   if (productModal) {
     productModal.addEventListener("click", (e) => {
-      if (e.target === productModal) productModal.classList.remove("open");
+      if (e.target === productModal) {
+        productModal.classList.remove("open");
+      }
     });
   }
 
@@ -332,21 +318,7 @@ function renderAllProducts() {
   const allProductsGrid = document.getElementById("allProductsGrid");
   if (!allProductsGrid) return;
 
-  let filtered = data.filter((product) => {
-    const matchesCategory =
-      selectedCategory === "all" || product.category === selectedCategory;
-    const matchesSearch = product.title
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  if (filtered.length === 0) {
-    allProductsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--text-muted);">No products found.</p>`;
-    return;
-  }
-
-  allProductsGrid.innerHTML = filtered
+  allProductsGrid.innerHTML = data
     .map((product) => generateProductHTML(product))
     .join("");
 }
@@ -360,16 +332,33 @@ function openProductModal(id) {
 
   modalBody.innerHTML = `
     <div class="modal-grid">
-      <div class="modal-img-wrapper" style="background:#fff; padding:10px; border-radius:6px; display:flex; align-items:center; justify-content:center;">
+      <div class="modal-img-wrapper"
+        style="background:#fff; padding:10px; border-radius:6px;
+        display:flex; align-items:center; justify-content:center;">
         <img src="${product.image}" alt="${product.title}">
       </div>
+
       <div class="modal-info">
         <h2>${product.title}</h2>
-        <p style="color:var(--accent-blue); font-size:12px; margin-bottom:8px; text-transform:uppercase;">${product.category}</p>
-        <p class="modal-desc">${product.description}</p>
-        <div class="price" style="font-size:18px;">$${product.price}</div>
+
+        <p style="
+          color:var(--accent-blue);
+          font-size:12px;
+          margin-bottom:8px;
+          text-transform:uppercase;">
+          ${product.category}
+        </p>
+
+        <p class="modal-desc">
+          ${product.description}
+        </p>
+
+        <div class="price" style="font-size:18px;">
+          $${product.price}
+        </div>
       </div>
     </div>
   `;
+
   productModal.classList.add("open");
 }
